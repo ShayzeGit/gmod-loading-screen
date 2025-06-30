@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <title>Soluna 'Solo Leveling' Roleplay</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap');
 
     * {
       margin: 0;
@@ -13,31 +13,32 @@
     }
     html, body {
       height: 100%;
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Exo 2', sans-serif;
       background: url('background.jpg') no-repeat center center fixed;
       background-size: cover;
       color: white;
     }
     .container {
       width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
+      min-height: 100%;
+      background-color: rgba(0, 0, 0, 0.65);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 40px;
+      padding: 40px 20px;
       text-align: center;
+      gap: 30px;
     }
     h1 {
-      font-size: 3em;
+      font-size: 3rem;
       color: #00aaff;
       text-shadow: 0 0 10px #00aaff, 0 0 20px black;
-      margin-bottom: 10px;
+      margin-bottom: 0;
+      font-weight: 600;
     }
     .loading {
-      font-size: 1.5em;
-      margin-bottom: 40px;
+      font-size: 1.5rem;
       animation: blink 1.5s infinite;
       color: #ffffffcc;
     }
@@ -47,51 +48,69 @@
     }
     .section {
       background-color: rgba(10, 10, 20, 0.8);
-      padding: 20px;
+      padding: 20px 30px;
       border-radius: 15px;
       width: 80%;
       max-width: 900px;
-      margin-bottom: 25px;
       box-shadow: 0 0 20px #000000aa;
+      text-align: left;
     }
     .section h2 {
       color: #00bfff;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       text-shadow: 0 0 5px black;
+      font-weight: 600;
     }
     .patch-notes ul {
       list-style: none;
-      text-align: left;
+      padding-left: 1rem;
     }
     .patch-notes li {
-      margin-bottom: 5px;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
     }
     .founders {
+      width: 80%;
+      max-width: 900px;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
-      gap: 40px;
+      gap: 60px;
+      margin-top: 15px;
     }
     .founder {
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #00aaff;
+      text-shadow: 0 0 8px #00aaff;
+      font-weight: 600;
+      font-size: 1.2rem;
+      user-select: none;
     }
     .founder img {
       border-radius: 50%;
-      width: 100px;
-      height: 100px;
-      border: 2px solid #00aaff;
-      box-shadow: 0 0 10px #00aaff;
+      width: 110px;
+      height: 110px;
+      border: 3px solid #00aaff;
+      box-shadow: 0 0 15px #00aaff;
+      margin-bottom: 8px;
+      object-fit: cover;
+      background-color: #000;
     }
     .rank {
-      color: red;
+      margin-top: 4px;
       font-weight: bold;
-      margin-top: 5px;
+      font-size: 0.9rem;
+      color: #ff5555;
       text-shadow: 0 0 5px black;
     }
     .discord {
-      margin-top: 30px;
-      font-size: 1.1em;
+      margin-top: 40px;
+      font-size: 1.1rem;
       color: #ffffffcc;
+      text-align: center;
+      width: 80%;
+      max-width: 900px;
     }
     .discord a {
       color: #7289da;
@@ -99,7 +118,6 @@
       font-weight: bold;
     }
 
-    /* Bouton mute/démute */
     #mute-button {
       position: fixed;
       bottom: 20px;
@@ -113,7 +131,7 @@
       padding: 8px 12px;
       box-shadow: 0 0 8px #004466;
       user-select: none;
-      opacity: 0.6; /* moins brillant */
+      opacity: 0.6;
       transition: opacity 0.3s ease, background-color 0.3s ease;
     }
     #mute-button:hover {
@@ -136,19 +154,16 @@
       </ul>
     </div>
 
-    <div class="section">
-      <h2>Fondateurs</h2>
-      <div class="founders">
-        <div class="founder">
-          <img src="img/shayze.jpg" alt="Shayze" />
-          <div>Shayze</div>
-          <div class="rank">OWNER</div>
-        </div>
-        <div class="founder">
-          <img src="img/erkoz.jpg" alt="ErkoZ" />
-          <div>ErkoZ</div>
-          <div class="rank">OWNER</div>
-        </div>
+    <div class="founders">
+      <div class="founder">
+        <img src="img/shayze.jpg" alt="Shayze" />
+        <div>Shayze</div>
+        <div class="rank">OWNER</div>
+      </div>
+      <div class="founder">
+        <img src="img/erkoz.jpg" alt="ErkoZ" />
+        <div>ErkoZ</div>
+        <div class="rank">OWNER</div>
       </div>
     </div>
 
@@ -157,20 +172,17 @@
     </div>
   </div>
 
-  <!-- Audio sans autoplay -->
   <audio id="background-audio" loop>
     <source src="audio/Survive (from Solo Leveling).mp3" type="audio/mpeg" />
     Ton navigateur ne supporte pas la balise audio.
   </audio>
 
-  <!-- Bouton pour contrôler le son -->
   <button id="mute-button" aria-label="Activer ou désactiver le son">🔇</button>
 
   <script>
     const audio = document.getElementById('background-audio');
     const muteBtn = document.getElementById('mute-button');
 
-    // Etat initial : audio en pause, icone son coupé 🔇
     audio.pause();
     audio.muted = true;
 
