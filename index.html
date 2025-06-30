@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Soluna 'Solo Leveling' Roleplay</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
@@ -99,33 +99,26 @@
       font-weight: bold;
     }
 
-    /* Style bouton mute */
+    /* Bouton mute/démute */
     #mute-button {
       position: fixed;
       bottom: 20px;
       left: 20px;
-      background-color: #00aaff;
-      border: none;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      color: white;
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 2px solid #00aaff;
+      color: #00aaff;
       font-size: 24px;
       cursor: pointer;
-      box-shadow:
-        0 0 8px #00aaff,
-        0 0 20px #00aaff,
-        0 0 30px #00aaff;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border-radius: 10px;
+      padding: 8px 12px;
+      box-shadow: 0 0 8px #004466;
       user-select: none;
-      z-index: 1000;
+      opacity: 0.6; /* moins brillant */
+      transition: opacity 0.3s ease, background-color 0.3s ease;
     }
     #mute-button:hover {
-      background-color: #0088cc;
-      color: #ccffff;
+      opacity: 1;
+      background-color: rgba(0, 170, 255, 0.2);
     }
   </style>
 </head>
@@ -147,12 +140,12 @@
       <h2>Fondateurs</h2>
       <div class="founders">
         <div class="founder">
-          <img src="img/shayze.jpg" alt="Shayze">
+          <img src="img/shayze.jpg" alt="Shayze" />
           <div>Shayze</div>
           <div class="rank">OWNER</div>
         </div>
         <div class="founder">
-          <img src="img/erkoz.jpg" alt="ErkoZ">
+          <img src="img/erkoz.jpg" alt="ErkoZ" />
           <div>ErkoZ</div>
           <div class="rank">OWNER</div>
         </div>
@@ -164,32 +157,32 @@
     </div>
   </div>
 
-  <!-- Audio avec gestion mute -->
+  <!-- Audio sans autoplay -->
   <audio id="background-audio" loop>
-    <source src="audio/Survive (from Solo Leveling).mp3" type="audio/mpeg">
+    <source src="audio/Survive (from Solo Leveling).mp3" type="audio/mpeg" />
     Ton navigateur ne supporte pas la balise audio.
   </audio>
 
-  <button id="mute-button" aria-label="Toggle Sound">🔊</button>
+  <!-- Bouton pour contrôler le son -->
+  <button id="mute-button" aria-label="Activer ou désactiver le son">🔇</button>
 
   <script>
     const audio = document.getElementById('background-audio');
     const muteBtn = document.getElementById('mute-button');
 
-    // Essayer de lancer l'audio (autoplay parfois bloqué)
-    function tryPlay() {
-      audio.play().catch(() => {
-        console.log("Autoplay bloqué, attente interaction utilisateur");
-      });
-    }
-
-    tryPlay();
+    // Etat initial : audio en pause, icone son coupé 🔇
+    audio.pause();
+    audio.muted = true;
 
     muteBtn.addEventListener('click', () => {
-      if (audio.muted) {
+      if (audio.paused) {
+        audio.play().catch(e => {
+          console.warn("Lecture audio bloquée:", e);
+        });
         audio.muted = false;
         muteBtn.textContent = "🔊";
       } else {
+        audio.pause();
         audio.muted = true;
         muteBtn.textContent = "🔇";
       }
