@@ -117,27 +117,6 @@
       text-decoration: none;
       font-weight: bold;
     }
-
-    #mute-button {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background-color: rgba(0, 0, 0, 0.7);
-      border: 2px solid #00aaff;
-      color: #00aaff;
-      font-size: 24px;
-      cursor: pointer;
-      border-radius: 10px;
-      padding: 8px 12px;
-      box-shadow: 0 0 8px #004466;
-      user-select: none;
-      opacity: 0.6;
-      transition: opacity 0.3s ease, background-color 0.3s ease;
-    }
-    #mute-button:hover {
-      opacity: 1;
-      background-color: rgba(0, 170, 255, 0.2);
-    }
   </style>
 </head>
 <body>
@@ -172,33 +151,27 @@
     </div>
   </div>
 
-  <audio id="background-audio" loop>
+  <audio id="background-audio" autoplay loop>
     <source src="audio/Survive (from Solo Leveling).mp3" type="audio/mpeg" />
     Ton navigateur ne supporte pas la balise audio.
   </audio>
 
-  <button id="mute-button" aria-label="Activer ou désactiver le son">🔇</button>
-
   <script>
     const audio = document.getElementById('background-audio');
-    const muteBtn = document.getElementById('mute-button');
+    audio.volume = 0;
 
-    audio.pause();
-    audio.muted = true;
-
-    muteBtn.addEventListener('click', () => {
-      if (audio.paused) {
-        audio.play().catch(e => {
-          console.warn("Lecture audio bloquée:", e);
-        });
-        audio.muted = false;
-        muteBtn.textContent = "🔊";
+    // Fade-in progressif jusqu'à 0.2
+    let targetVolume = 0.2;
+    let currentVolume = 0;
+    let step = 0.01;
+    let interval = setInterval(() => {
+      if (currentVolume < targetVolume) {
+        currentVolume += step;
+        audio.volume = Math.min(currentVolume, targetVolume);
       } else {
-        audio.pause();
-        audio.muted = true;
-        muteBtn.textContent = "🔇";
+        clearInterval(interval);
       }
-    });
+    }, 200);
   </script>
 </body>
 </html>
