@@ -1,177 +1,261 @@
+<audio id="bg-music" src="audio/solunaudio.mp3" preload="auto"></audio>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <title>Soluna 'Solo Leveling' Roleplay</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-      font-family: 'Exo 2', sans-serif;
-      background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&family=Orbitron:wght@700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; font-family: 'Exo 2', 'Orbitron', sans-serif; color: #eaf6ff; }
+    .background-video { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1; pointer-events: none; opacity: 0.8; }
     .container {
-      width: 100%;
-      min-height: 100%;
-      background-color: rgba(0, 0, 0, 0.65);
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 40px 20px;
-      text-align: center;
-      gap: 30px;
+      padding: 40px 0 40px 0;
+      gap: 0;
+      position: relative;
     }
-    h1 {
-      font-size: 3rem;
-      color: #00aaff;
-      text-shadow: 0 0 10px #00aaff, 0 0 20px black;
-      margin-bottom: 0;
-      font-weight: 600;
+    .main-title {
+      font-family: 'Orbitron', 'Exo 2', sans-serif;
+      font-size: 4.2rem;
+      color: #00c3ff;
+      text-shadow: 0 0 40px #00c3ff, 0 0 80px #0a0a20, 0 0 20px #fff;
+      margin-top: 0;
+      margin-bottom: 30px;
+      letter-spacing: 2px;
+      animation: auraGlow 2.5s infinite alternate;
+    }
+    @keyframes auraGlow {
+      0% { text-shadow: 0 0 30px #00c3ff, 0 0 60px #0a0a20, 0 0 10px #fff; }
+      100% { text-shadow: 0 0 60px #00c3ff, 0 0 80px #0a0a20, 0 0 20px #fff; }
     }
     .loading {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
+      color: #b3eaff;
+      margin-bottom: 40px;
+      margin-top: -10px;
+      letter-spacing: 1px;
       animation: blink 1.5s infinite;
-      color: #ffffffcc;
     }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-    .section {
-      background-color: rgba(10, 10, 20, 0.8);
-      padding: 20px 30px;
-      border-radius: 15px;
-      width: 80%;
-      max-width: 900px;
-      box-shadow: 0 0 20px #000000aa;
-      text-align: left;
-    }
-    .section h2 {
-      color: #00bfff;
-      margin-bottom: 15px;
-      text-shadow: 0 0 5px black;
-      font-weight: 600;
-    }
-    .patch-notes ul {
-      list-style: none;
-      padding-left: 1rem;
-    }
-    .patch-notes li {
-      margin-bottom: 8px;
-      font-size: 1.1rem;
-    }
-    .founders {
-      width: 80%;
-      max-width: 900px;
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+    .cards {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      gap: 60px;
-      margin-top: 15px;
+      align-items: stretch;
+      gap: 32px;
+      margin-bottom: 40px;
+      margin-top: 0;
+    }
+    .card {
+      background: linear-gradient(135deg, rgba(10,20,40,0.97) 60%, rgba(0,195,255,0.14) 100%);
+      border-radius: 22px;
+      box-shadow: 0 0 36px #00c3ff44, 0 0 12px #000;
+      padding: 32px 38px;
+      min-width: 320px;
+      max-width: 400px;
+      color: #eaf6ff;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid #00c3ff44;
+      margin-bottom: 0;
+    }
+    .card h2 {
+      color: #00c3ff;
+      font-size: 1.6rem;
+      margin-bottom: 16px;
+      text-shadow: 0 0 12px #00c3ff, 0 0 2px #000;
+      font-family: 'Orbitron', 'Exo 2', sans-serif;
+    }
+    .patch-notes ul { list-style: none; padding-left: 0; }
+    .patch-notes li { margin-bottom: 10px; font-size: 1.08rem; }
+@media (max-width: 900px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .card {
+    min-width: 90vw;
+    max-width: 98vw;
+    padding: 24px 10px;
+  }
+  .main-title {
+    font-size: 2.5rem;
+    margin-bottom: 18px;
+  }
+}
+    .founders {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
     .founder {
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #00aaff;
-      text-shadow: 0 0 8px #00aaff;
+      color: #00c3ff;
       font-weight: 600;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       user-select: none;
+      position: relative;
+      filter: drop-shadow(0 0 12px #00c3ff88);
     }
     .founder img {
       border-radius: 50%;
-      width: 110px;
-      height: 110px;
-      border: 3px solid #00aaff;
-      box-shadow: 0 0 15px #00aaff;
+      width: 120px;
+      height: 120px;
+      border: 3px solid #00c3ff;
+      box-shadow: 0 0 30px #00c3ff, 0 0 10px #000;
       margin-bottom: 8px;
       object-fit: cover;
-      background-color: #000;
+      background-color: #0a0a20;
+      transition: box-shadow 0.3s;
     }
     .rank {
       margin-top: 4px;
       font-weight: bold;
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: #ff5555;
-      text-shadow: 0 0 5px black;
+      text-shadow: 0 0 8px #00c3ff, 0 0 2px #000;
+      letter-spacing: 1px;
     }
     .discord {
-      margin-top: 40px;
-      font-size: 1.1rem;
-      color: #ffffffcc;
+      font-size: 1.15rem;
+      color: #b3eaff;
       text-align: center;
-      width: 80%;
-      max-width: 900px;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
     .discord a {
-      color: #7289da;
-      text-decoration: none;
+      color: #00c3ff;
+      text-decoration: underline;
       font-weight: bold;
+      text-shadow: 0 0 8px #00c3ff;
+      transition: color 0.2s;
     }
+    .discord a:hover { color: #fff; }
   </style>
 </head>
 <body>
+  <video class="background-video" autoplay loop muted playsinline>
+    <source src="background.mp4" type="video/mp4" />
+    Votre navigateur ne supporte pas la vidéo en fond.
+  </video>
+  <canvas id="particles-canvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;"></canvas>
   <div class="container">
-    <h1>Soluna 'Solo Leveling' Roleplay</h1>
+    <div class="main-title">Soluna <span style="color:#fff;">Solo Leveling</span> Roleplay</div>
     <div class="loading">Chargement en cours...</div>
-
-    <div class="section patch-notes">
-      <h2>Patch Notes</h2>
-      <ul>
-        <li>[29/06/2025] Ajout du système de portail</li>
-        <li>[28/06/2025] Nouveau job : Shadow Hunter</li>
-        <li>[25/06/2025] Optimisation du HUD RP</li>
-      </ul>
-    </div>
-
-    <div class="founders">
-      <div class="founder">
-        <img src="img/shayze.jpg" alt="Shayze" />
-        <div>Shayze</div>
-        <div class="rank">OWNER</div>
+    <div class="cards">
+      <div class="card patch-notes">
+        <h2 style="display:flex;align-items:center;gap:12px;font-size:1.6rem;margin-bottom:32px;color:#00c3ff;text-shadow:0 0 12px #00c3ff,0 0 2px #000;font-family:'Orbitron','Exo 2',sans-serif;letter-spacing:2.5px;padding-left:2px;padding-right:2px;">
+          <span class="icon" style="vertical-align:middle;font-size:1.3em;">📝</span> Patch Notes
+        </h2>
+        <ul>
+          <li>[29/06/2025] Ajout du système de portail</li>
+          <li>[28/06/2025] Nouveau job : Shadow Hunter</li>
+          <li>[25/06/2025] Optimisation du HUD RP</li>
+        </ul>
       </div>
-      <div class="founder">
-        <img src="img/erkoz.jpg" alt="ErkoZ" />
-        <div>ErkoZ</div>
-        <div class="rank">OWNER</div>
+      <div class="card events-card">
+        <h2 style="display:flex;align-items:center;gap:12px;font-size:1.6rem;margin-bottom:32px;color:#00c3ff;text-shadow:0 0 12px #00c3ff,0 0 2px #000;font-family:'Orbitron','Exo 2',sans-serif;letter-spacing:2.5px;padding-left:2px;padding-right:2px;">
+          <span class="icon" style="vertical-align:middle;font-size:1.3em;">📅</span> Event
+        </h2>
+        <ul style="list-style:none;padding-left:0;">
+          <li style="margin-bottom:16px;"><strong>Soirée RP spéciale :</strong> 19/07/2025</li>
+          <li style="margin-bottom:16px;"><strong>Tournament PvP :</strong> 26/07/2025</li>
+          <li><strong>Mise à jour de contenu :</strong> 01/08/2025</li>
+        </ul>
       </div>
-    </div>
+  <button id="mute-button" aria-label="Activer ou désactiver le son" style="position:fixed;bottom:24px;left:24px;background:linear-gradient(135deg,#0a0a20 70%,#00c3ff22 100%);border:2px solid #00c3ff;color:#00c3ff;font-size:28px;cursor:pointer;border-radius:12px;padding:10px 16px;box-shadow:0 0 12px #00c3ff44;user-select:none;opacity:0.7;transition:opacity 0.3s,background 0.3s,box-shadow 0.3s;">🔇</button>
+</body>
+<audio id="bg-music" src="audio/solunaudio.mp3" autoplay loop preload="auto"></audio>
+<script>
+// Effet visuel : particules animées bleues
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
-    <div class="discord">
+function createParticles(num) {
+  particles = [];
+  for (let i = 0; i < num; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 2.5 + 1.5,
+      dx: (Math.random() - 0.5) * 0.4,
+      dy: (Math.random() - 0.5) * 0.4,
+      alpha: Math.random() * 0.5 + 0.5
+    });
+  }
+}
+createParticles(30);
+
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let p of particles) {
+    ctx.save();
+    ctx.globalAlpha = p.alpha;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
+    ctx.fillStyle = 'rgba(0,195,255,0.85)';
+    ctx.shadowColor = '#00c3ff';
+    ctx.shadowBlur = 16;
+    ctx.fill();
+    ctx.restore();
+    p.x += p.dx;
+    p.y += p.dy;
+    if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+  }
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+  const audio = document.getElementById('bg-music');
+  const muteBtn = document.getElementById('mute-button');
+  let isPlaying = false;
+  audio.volume = 0.3;
+  muteBtn.addEventListener('click', function() {
+    if (!isPlaying) {
+      audio.play();
+      isPlaying = true;
+      muteBtn.textContent = '🔊';
+    } else {
+      audio.pause();
+      isPlaying = false;
+      muteBtn.textContent = '🔇';
+    }
+  });
+</script>
+</html>
+      <div class="card founders-card">
+        <h2 style="display:flex;align-items:center;gap:12px;font-size:1.6rem;margin-bottom:16px;color:#00c3ff;text-shadow:0 0 12px #00c3ff,0 0 2px #000;font-family:'Orbitron','Exo 2',sans-serif;letter-spacing:2.5px;padding-left:2px;padding-right:2px;">
+          <span class="icon" style="vertical-align:middle;font-size:1.3em;">🛡️</span> L'élite
+        </h2>
+        <ul style="list-style:none;padding-left:0;margin:0 auto;text-align:left;max-width:320px;">
+          <li style="margin-bottom:12px;"><span style="color:#ff5555;font-weight:bold;font-size:1.15em;text-shadow:0 0 8px #ff5555,0 0 2px #000;">𝗦</span> <span style="color:#00c3ff;font-weight:600;">Jinwoo</span></li>
+          <li style="margin-bottom:12px;"><span style="color:#ff5555;font-weight:bold;font-size:1.15em;text-shadow:0 0 8px #ff5555,0 0 2px #000;">𝗦</span> <span style="color:#00c3ff;font-weight:600;">Shayze</span></li>
+          <li style="margin-bottom:12px;"><span style="color:#ff5555;font-weight:bold;font-size:1.15em;text-shadow:0 0 8px #ff5555,0 0 2px #000;">𝗦</span> <span style="color:#00c3ff;font-weight:600;">ErkoZ</span></li>
+          <li><span style="color:#ff5555;font-weight:bold;font-size:1.15em;text-shadow:0 0 8px #ff5555,0 0 2px #000;">𝗦</span> <span style="color:#00c3ff;font-weight:600;">Baek Yoonho</span></li>
+        </ul>
+      </div>
+      
+    </div>
+    <div class="discord" style="margin:38px auto 18px auto;font-size:1.18rem;text-align:center;max-width:420px;">
       Rejoignez notre serveur Discord : <a href="https://discord.gg/mZgBuAZmWG">discord.gg/mZgBuAZmWG</a>
     </div>
   </div>
-
-  <audio id="background-audio" autoplay loop>
-    <source src="audio/Survive (from Solo Leveling).mp3" type="audio/mpeg" />
-    Ton navigateur ne supporte pas la balise audio.
-  </audio>
-
-  <script>
-    const audio = document.getElementById('background-audio');
-    audio.volume = 0;
-
-    // Fade-in progressif jusqu'à 0.2
-    let targetVolume = 0.2;
-    let currentVolume = 0;
-    let step = 0.01;
-    let interval = setInterval(() => {
-      if (currentVolume < targetVolume) {
-        currentVolume += step;
-        audio.volume = Math.min(currentVolume, targetVolume);
-      } else {
-        clearInterval(interval);
-      }
-    }, 200);
-  </script>
 </body>
 </html>
